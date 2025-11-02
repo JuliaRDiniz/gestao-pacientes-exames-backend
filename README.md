@@ -88,4 +88,4 @@ Backend desenvolvido em **Node.js** com **Express** e **Prisma** para gerenciame
 
 Este backend é consumido pela aplicação frontend em Angular:
 
-**Frontend Repositório:** [https://github.com/JuliaRDiniz/gestao-pacientes-exames-frontend](link)
+**Frontend Repositório:** [https://github.com/JuliaRDiniz/gestao-pacientes-exames-frontend](https://github.com/JuliaRDiniz/gestao-pacientes-exames-frontend)
