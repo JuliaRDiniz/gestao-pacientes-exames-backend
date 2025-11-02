@@ -97,12 +97,11 @@ app.post("/pacientes", async (req, res) => {
 
 app.put("/pacientes/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, document, birthDate } = req.body;
+  const { name, birthDate } = req.body;
 
   const dataToUpdate = {};
 
   if (name) dataToUpdate.name = name;
-  if (document) dataToUpdate.document = document;
   if (birthDate) {
     if (isNaN(Date.parse(birthDate))) {
       return res.status(400).json({ mensagem: "Data de nascimento inválida" });
@@ -125,10 +124,6 @@ app.put("/pacientes/:id", async (req, res) => {
 
     if (error.code === "P2025") {
       return res.status(404).json({ mensagem: "Paciente não encontrado" });
-    }
-
-    if (error.code === "P2002" && error.meta?.target?.includes("document")) {
-      return res.status(409).json({ mensagem: "CPF já cadastrado no sistema" });
     }
 
     return res.status(500).json({ error: "Erro ao atualizar paciente" });
