@@ -6,6 +6,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: [
+      "https://gestao-pacientes-exames-frontend.vercel.app",
+      "https://www.gestao-pacientes-exames-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+
 const port = process.env.PORT || 3000;
 
 app.get("/pacientes", async (req, res) => {
@@ -14,11 +24,14 @@ app.get("/pacientes", async (req, res) => {
     const pageSize = parseInt(req.query.pageSize) || 10;
     const skip = (page - 1) * pageSize;
 
+
     const patients = await prisma.patient.findMany({
       skip: skip,
       take: pageSize,
       orderBy: { createdAt: "desc" },
     });
+
+
 
     const total = await prisma.patient.count();
 
@@ -30,6 +43,7 @@ app.get("/pacientes", async (req, res) => {
       totalPages: Math.ceil(total / pageSize),
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Erro ao buscar pacientes" });
   }
 });
